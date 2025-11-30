@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Traffic Bot - Monitoring</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Monitoring Session</h1>
+            <p>Real-time monitoring untuk semua active sessions dengan simulasi membaca</p>
+            <div class="header-actions">
+                <button onclick="goToConfig()">⚙️ Configuration</button>
+                <button onclick="clearAllSessions()">🗑️ Clear All Sessions</button>
+                <button onclick="stopAllSessions()">⏹️ Stop All Sessions</button>
+                <button onclick="refreshLogs()">🔄 Refresh Logs</button>
+            </div>
+        </header>
+
+        <div class="sessions-overview">
+            <h2>📈 Overview Sessions</h2>
+            <div id="sessionsSummary" class="summary-cards">
+                <!-- Summary cards akan diisi oleh JavaScript -->
+            </div>
+        </div>
+
+        <div class="simulation-status">
+            <h2>🎭 Aktivitas Simulasi Real-time</h2>
+            <div id="simulationActivity" style="
+                background: #1a1a1a; 
+                color: #00ff00; 
+                padding: 15px; 
+                border-radius: 8px; 
+                font-family: 'Courier New', monospace;
+                height: 120px;
+                overflow-y: auto;
+                margin-bottom: 20px;
+                border: 1px solid #34495e;
+            ">
+                <div>🔄 Menunggu aktivitas simulasi...</div>
+            </div>
+            
+            <div class="simulation-stats">
+                <div class="stat-item">
+                    <strong>Scroll Progress:</strong>
+                    <div class="progress-bar">
+                        <div id="scrollProgress" class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <span id="scrollPercent">0%</span>
+                </div>
+                
+                <div class="stat-item">
+                    <strong>Device Type:</strong>
+                    <span id="currentDevice">Unknown</span>
+                </div>
+                
+                <div class="stat-item">
+                    <strong>Activity Type:</strong>
+                    <span id="currentActivity">Idle</span>
+                </div>
+
+                <div class="stat-item">
+                    <strong>Simulation Features:</strong>
+                    <span style="color: #27ae60;">✅ Scroll Naik-Turun</span>
+                    <span style="color: #27ae60;">✅ Gerakan Mouse</span>
+                    <span style="color: #27ae60;">✅ Sentuhan Mobile</span>
+                    <span style="color: #27ae60;">✅ Baca Postingan</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sessions-list">
+            <h2>🔄 Active Sessions</h2>
+            <div id="sessionsContainer">
+                <!-- Session list akan diisi oleh JavaScript -->
+            </div>
+        </div>
+
+        <div class="logs-section">
+            <h2>📝 Real-time Logs</h2>
+            <div class="log-controls">
+                <select id="sessionSelector">
+                    <option value="">Pilih session untuk melihat logs...</option>
+                </select>
+                <button onclick="refreshLogs()">🔄 Refresh</button>
+                <button onclick="clearLogs()">🧹 Clear Logs</button>
+                <button onclick="loadSessions()">📡 Reload Sessions</button>
+            </div>
+            <div class="log-container" id="logContainer">
+                <p>Pilih session untuk melihat logs real-time...</p>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3>🎯 Simulasi yang Sedang Berjalan:</h3>
+            <ol>
+                <li><strong>Scroll Realistis:</strong> Naik-turun seperti manusia membaca</li>
+                <li><strong>Gerakan Kursor:</strong> Mouse movement natural untuk desktop</li>
+                <li><strong>Sentuhan Mobile:</strong> Tap dan swipe untuk device mobile</li>
+                <li><strong>Pause Membaca:</strong> Berhenti sejenak seperti manusia</li>
+                <li><strong>Highlight Teks:</strong> Seleksi teks secara acak</li>
+                <li><strong>Interaksi Mikro:</strong> Klik element kecil secara random</li>
+                <li><strong>Buka Postingan:</strong> Membuka multiple link sebelum cleanup</li>
+                <li><strong>Progress Tracking:</strong> Monitor progress real-time</li>
+            </ol>
+        </div>
+    </div>
+
+    <script src="monitoring.js"></script>
+</body>
+</html>
