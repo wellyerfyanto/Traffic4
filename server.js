@@ -39,7 +39,7 @@ const AUTO_LOOP_CONFIG = {
   enabled: process.env.AUTO_LOOP === 'true' || false,
   interval: parseInt(process.env.LOOP_INTERVAL) || 30 * 60 * 1000,
   maxSessions: parseInt(process.env.MAX_SESSIONS) || 10,
-  targetUrl: process.env.DEFAULT_TARGET_URL || 'https://github.com'
+  targetUrl: process.env.DEFAULT_TARGET_URL || 'https://cryptoajah.blogspot.com'
 };
 
 // Global variable untuk auto-loop interval
