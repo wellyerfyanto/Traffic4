@@ -249,7 +249,7 @@ class TrafficGenerator {
       timeout: 30000
     });
 
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(10000);
   }
 
   async executeFormFillMethod(page, sessionId, config, webProxy) {
@@ -257,7 +257,7 @@ class TrafficGenerator {
     
     await page.goto(webProxy.url, {
       waitUntil: 'domcontentloaded',
-      timeout: 60000
+      timeout: 90000
     });
 
     const inputFilled = await this.findAndFillInput(page, sessionId, config.targetUrl, webProxy);
@@ -493,7 +493,7 @@ class TrafficGenerator {
         }
         
         if (attempt < maxAttempts) {
-          await page.waitForTimeout(2000);
+          await page.waitForTimeout(12000);
         }
         
       } catch (error) {
