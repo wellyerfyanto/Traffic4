@@ -165,14 +165,14 @@ class TrafficGenerator {
         executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || null,
         ignoreHTTPSErrors: true,
         ignoreDefaultArgs: ['--disable-extensions'],
-        timeout: 60000
+        timeout: 90000
       };
 
       browser = await puppeteer.launch(launchOptions);
       const page = await browser.newPage();
       
-      page.setDefaultTimeout(45000);
-      page.setDefaultNavigationTimeout(60000);
+      page.setDefaultTimeout(80000);
+      page.setDefaultNavigationTimeout(100000);
 
       const userAgent = this.activeSessions.get(sessionId).userAgent;
       await page.setUserAgent(userAgent);
@@ -189,7 +189,7 @@ class TrafficGenerator {
         this.log(sessionId, 'STEP_2', `Navigating to: ${config.targetUrl}`);
         await page.goto(config.targetUrl, { 
           waitUntil: 'domcontentloaded',
-          timeout: 60000
+          timeout: 90000
         });
       }
 
@@ -257,7 +257,7 @@ class TrafficGenerator {
     
     await page.goto(webProxy.url, {
       waitUntil: 'domcontentloaded',
-      timeout: 30000
+      timeout: 60000
     });
 
     const inputFilled = await this.findAndFillInput(page, sessionId, config.targetUrl, webProxy);
@@ -551,7 +551,7 @@ class TrafficGenerator {
           await this.humanScroll(page);
         },
         successMessage: 'Scroll simulation completed',
-        timeout: 30000
+        timeout: 60000
       },
       {
         name: 'STEP_4', 
@@ -563,7 +563,7 @@ class TrafficGenerator {
           }
         },
         successMessage: 'Random click completed',
-        timeout: 15000
+        timeout: 35000
       },
       {
         name: 'STEP_5',
@@ -572,7 +572,7 @@ class TrafficGenerator {
           await this.skipGoogleAds(page);
         },
         successMessage: 'Ads handled',
-        timeout: 10000
+        timeout: 90000
       },
       {
         name: 'STEP_GOOGLE_ADS',
@@ -584,7 +584,7 @@ class TrafficGenerator {
           }
         },
         successMessage: 'Google ads process completed',
-        timeout: 60000
+        timeout: 90000
       },
       {
         name: 'STEP_READING_AFTER_ADS',
@@ -593,7 +593,7 @@ class TrafficGenerator {
           await this.simulateRealisticReading(page, sessionId, config.deviceType);
         },
         successMessage: 'Reading simulation after ads completed',
-        timeout: 90000
+        timeout: 150000
       },
       {
         name: 'STEP_POST_LINKS',
@@ -602,7 +602,7 @@ class TrafficGenerator {
           await this.clickMultiplePostLinks(page, sessionId);
         },
         successMessage: 'Berhasil membuka beberapa postingan',
-        timeout: 30000
+        timeout: 60000
       },
       {
         name: 'STEP_READING_BEFORE_CLEANUP',
@@ -703,15 +703,15 @@ class TrafficGenerator {
             }
           }, link.href);
 
-          await page.waitForTimeout(5000);
+          await page.waitForTimeout(9000);
           
           await this.humanScroll(page);
           
-          await page.waitForTimeout(3000);
+          await page.waitForTimeout(6000);
 
           if (i < linksToOpen.length - 1) {
             await page.goBack();
-            await page.waitForTimeout(2000);
+            await page.waitForTimeout(6000);
           }
         }
 
@@ -799,9 +799,9 @@ class TrafficGenerator {
 
       if (adClicked) {
         this.log(sessionId, 'AD_CLICKED', 'Clicked on Google ad');
-        await page.waitForTimeout(5000);
+        await page.waitForTimeout(9000);
         await page.goBack();
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(6000);
         return true;
       }
       return false;
@@ -816,7 +816,7 @@ class TrafficGenerator {
       this.log(sessionId, 'READING_SIMULATION_START', 
         `Memulai simulasi membaca realistis (${deviceType})...`);
 
-      const totalDuration = 45000 + Math.random() * 15000;
+      const totalDuration = 45000 + Math.random() * 25000;
       const startTime = Date.now();
       
       const viewport = await page.viewport();
