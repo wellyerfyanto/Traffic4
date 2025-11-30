@@ -1,4 +1,52 @@
-// public/script.js - Frontend Logic Lengkap dengan semua fitur
+// public/script.js - MODIFIED bagian startSessions()
+async function startSessions() {
+    const startBtn = document.getElementById('startBtn');
+    const originalText = startBtn.textContent;
+    
+    try {
+        startBtn.disabled = true;
+        startBtn.textContent = 'Starting...';
+        
+        const formData = {
+            targetUrl: document.getElementById('targetUrl').value,
+            profiles: document.getElementById('profiles').value,
+            deviceType: document.getElementById('deviceType').value,
+            proxies: document.getElementById('proxies')?.value || '',
+            autoLoop: document.getElementById('autoLoop').checked,
+            proxyType: document.querySelector('input[name="proxyType"]:checked')?.value
+        };
+
+        // VALIDASI: Proxy type wajib
+        if (!formData.proxyType) {
+            alert('❌ PROXY REQUIRED: Please select proxy type (Web, Fresh, or VPN)');
+            return;
+        }
+
+        const response = await fetch('/api/start-session', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+            alert('✅ Sessions started with PROXY ENFORCEMENT! Redirecting to monitoring...');
+            setTimeout(() => {
+                window.location.href = '/monitoring';
+            }, 2000);
+        } else {
+            alert('❌ Error: ' + result.error);
+        }
+    } catch (error) {
+        alert('❌ Network error: ' + error.message);
+    } finally {
+        startBtn.disabled = false;
+        startBtn.textContent = originalText;
+    }
+}
 document.addEventListener('DOMContentLoaded', function() {
     loadSystemStatus();
     checkAutoLoopStatus();
