@@ -99,7 +99,24 @@ if (AUTO_LOOP_CONFIG.enabled) {
   console.log('🔄 AUTO-LOOP: System starting with auto-looping enabled');
   startAutoLooping();
 }
-
+// Health check untuk session yang terlalu lama
+setInterval(() => {
+  try {
+    const sessions = botManager.getAllSessions();
+    const now = Date.now();
+    sessions.forEach(session => {
+      if (session.status === 'running') {
+        const sessionDuration = now - new Date(session.startTime).getTime();
+        if (sessionDuration > 10 * 60 * 1000) { // 10 menit maksimal
+          console.log(`🕒 Session ${session.id} exceeded max duration, stopping...`);
+          botManager.stopSession(session.id);
+        }
+      }
+    });
+  } catch (error) {
+    console.error('Error in session health check:', error);
+  }
+}, 60000); // Check setiap 1 menit
 // Routes
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
