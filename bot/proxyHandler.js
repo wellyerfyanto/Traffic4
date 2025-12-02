@@ -1,6 +1,3 @@
-[file name]: proxyHandler.js
-[file content begin]
-// bot/proxyHandler.js - Sistem Proxy 3 Jenis Lengkap dengan Web Proxy Database
 class ProxyHandler {
     constructor() {
         this.webProxies = [];
@@ -585,4 +582,3 @@ class ProxyHandler {
 }
 
 module.exports = ProxyHandler;
-[file content end]
